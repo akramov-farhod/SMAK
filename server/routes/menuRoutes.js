@@ -1,4 +1,5 @@
 const express = require("express");
+const MenuItem = require("../models/menuModel");
 
 const router = express.Router();
 
@@ -17,10 +18,15 @@ router.get("/:id", (req, res) => {
 });
 
 // POST a new MENU item
-router.post("/", (req, res) => {
-  res.json({
-    message: "POST a new MENU item",
-  });
+router.post("/", async (req, res) => {
+  const { title, price, description } = req.body;
+
+  try {
+    const menuItem = await MenuItem.create({ title, price, description });
+    res.status(200).json(menuItem);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
 // DELETE a MENU item
