@@ -1,33 +1,21 @@
 const express = require("express");
-const MenuItem = require("../models/menuModel");
+
+const {
+  getAllMenuItems,
+  getMenuItem,
+  createMenuItem,
+} = require("../controllers/menuController");
 
 const router = express.Router();
 
 // GET all MENU items
-router.get("/", (req, res) => {
-  res.json({
-    message: "GET all MENU items",
-  });
-});
+router.get("/", getAllMenuItems);
 
 // GET a single MENU item
-router.get("/:id", (req, res) => {
-  res.json({
-    message: "GET a single MENU item",
-  });
-});
+router.get("/:id", getMenuItem);
 
 // POST a new MENU item
-router.post("/", async (req, res) => {
-  const { title, price, description } = req.body;
-
-  try {
-    const menuItem = await MenuItem.create({ title, price, description });
-    res.status(200).json(menuItem);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+router.post("/", createMenuItem);
 
 // DELETE a MENU item
 router.delete("/:id", (req, res) => {
