@@ -12,6 +12,12 @@ export const menuItemsReducer = (state, action) => {
       return {
         menuItems: [action.payload, ...state.menuItems],
       };
+    case "DELETE_MENUITEM":
+      return {
+        menuItems: state.menuItems.filter(
+          (mI) => mI._id !== action.payload._id
+        ),
+      };
     default:
       return state;
   }
