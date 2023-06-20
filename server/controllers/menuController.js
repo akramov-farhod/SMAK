@@ -13,13 +13,13 @@ const getMenuItem = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "This Menu Item does NOT exist" });
+    return res.status(400).json({ error: "This Menu Item does NOT exist" });
   }
 
   const menuItem = await MenuItem.findById(id);
 
   if (!menuItem) {
-    return res.status(404).json({ error: "This Menu Item does NOT exist" });
+    return res.status(400).json({ error: "This Menu Item does NOT exist" });
   }
 
   res.status(200).json(menuItem);
@@ -39,11 +39,48 @@ const createMenuItem = async (req, res) => {
 };
 
 // DELETE a MENU item
+const deleteMenuItem = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "This Menu Item does NOT exist" });
+  }
+
+  const menuItem = await MenuItem.findOneAndDelete({ _id: id });
+
+  if (!menuItem) {
+    return res.status(400).json({ error: "This Menu Item does NOT exist" });
+  }
+
+  res.status(200).json(menuItem);
+};
 
 // UPDATE a MENU item
+const updateMenuItem = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "This Menu Item does NOT exist" });
+  }
+
+  const menuItem = await MenuItem.findOneAndUpdate(
+    { _id: id },
+    {
+      ...req.body,
+    }
+  );
+
+  if (!menuItem) {
+    return res.status(400).json({ error: "This Menu Item does NOT exist" });
+  }
+
+  res.status(200).json(menuItem);
+};
 
 module.exports = {
   getAllMenuItems,
   getMenuItem,
   createMenuItem,
+  deleteMenuItem,
+  updateMenuItem,
 };
