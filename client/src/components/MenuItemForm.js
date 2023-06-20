@@ -7,6 +7,7 @@ const MenuItemForm = () => {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +25,7 @@ const MenuItemForm = () => {
 
     if (!response.ok) {
       setError(json.error);
+      setEmptyFields(json.emptyFields);
     }
 
     if (response.ok) {
@@ -31,6 +33,7 @@ const MenuItemForm = () => {
       setPrice("");
       setDescription("");
       setError(null);
+      setEmptyFields([]);
       console.log("New Menu Item has been added.", json);
       dispatch({ type: "CREATE_MENUITEM", payload: json });
     }
@@ -45,6 +48,7 @@ const MenuItemForm = () => {
         type="text"
         onChange={(e) => setTitle(e.target.value)}
         value={title}
+        className={emptyFields.includes("title") ? "error" : ""}
       />
 
       <label>Price ($):</label>
@@ -52,6 +56,7 @@ const MenuItemForm = () => {
         type="number"
         onChange={(e) => setPrice(e.target.value)}
         value={price}
+        className={emptyFields.includes("price") ? "error" : ""}
       />
 
       <label>Description:</label>
@@ -59,6 +64,7 @@ const MenuItemForm = () => {
         type="text"
         onChange={(e) => setDescription(e.target.value)}
         value={description}
+        className={emptyFields.includes("description") ? "error" : ""}
       />
 
       <button>Submit</button>
