@@ -67,8 +67,9 @@ header a {
   color: #333;
 }
 
-/* new workout form */
-/* label, input {
+/* new Menu Item form */
+label,
+input {
   display: block;
 }
 input {
@@ -99,4 +100,4 @@ div.error {
 }
 input.error {
   border: 1px solid var(--error);
-} */
+}
