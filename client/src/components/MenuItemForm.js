@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useMenuItemsContext } from "../hooks/useMenuItemsContext";
 
 const MenuItemForm = () => {
+  const { dispatch } = useMenuItemsContext();
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -30,6 +32,7 @@ const MenuItemForm = () => {
       setDescription("");
       setError(null);
       console.log("New Menu Item has been added.", json);
+      dispatch({ type: "CREATE_MENUITEM", payload: json });
     }
   };
 
