@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 // Components
 import MenuItemDetails from "../components/MenuItemDetails";
+import MenuItemForm from "../components/MenuItemForm";
 
 const Home = () => {
   const [menuItems, setMenuItems] = useState(null);
@@ -27,6 +28,7 @@ const Home = () => {
             <MenuItemDetails key={menuItem._id} menuItem={menuItem} />
           ))}
       </div>
+      <MenuItemForm />
     </div>
   );
 };
