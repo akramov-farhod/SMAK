@@ -19,7 +19,7 @@ const Home = () => {
     };
 
     fetchMenuItems();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="home">

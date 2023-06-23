@@ -1,5 +1,8 @@
 import { useMenuItemsContext } from "../hooks/useMenuItemsContext";
 
+//date FNS
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+
 const MenuItemDetails = ({ menuItem }) => {
   const { dispatch } = useMenuItemsContext();
 
@@ -25,8 +28,12 @@ const MenuItemDetails = ({ menuItem }) => {
         <strong>Description: </strong>
         {menuItem.description}
       </p>
-      <p>{menuItem.createdAt}</p>
-      <span onClick={handleClick}>Delete</span>
+      <p>
+        {formatDistanceToNow(new Date(menuItem.createdAt), { addSuffix: true })}
+      </p>
+      <span onClick={handleClick} className="material-symbols-outlined">
+        delete
+      </span>
     </div>
   );
 };

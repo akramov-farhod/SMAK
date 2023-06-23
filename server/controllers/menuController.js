@@ -29,6 +29,26 @@ const getMenuItem = async (req, res) => {
 const createMenuItem = async (req, res) => {
   const { title, price, description } = req.body;
 
+  let emptyFields = [];
+
+  if (!title) {
+    emptyFields.push("title");
+  }
+
+  if (!price) {
+    emptyFields.push("price");
+  }
+
+  if (!description) {
+    emptyFields.push("description");
+  }
+
+  if (emptyFields.length > 0) {
+    return res
+      .status(400)
+      .json({ error: "Please fill in all the Fields", emptyFields });
+  }
+
   // adding a Document to DB
   try {
     const menuItem = await MenuItem.create({ title, price, description });
